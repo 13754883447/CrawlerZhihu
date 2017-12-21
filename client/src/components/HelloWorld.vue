@@ -1,21 +1,15 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <button @click='request'>获取</button>
     <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
+      <li v-for="(v,i) in items" :key="i">
+        <a :href="v.href" target="_blank" class="img">
+          <img :src="v.src" alt="">
+        </a>
+        <h2>{{v.title}}</h2>
+        <span>浏览量：{{v.views}}</span>
+        <span>点赞数：{{v.thumbs}}</span>
+      </li>
     </ul>
   </div>
 </template>
@@ -25,8 +19,20 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      items:[]
     }
+  },
+  methods:{
+    request(){
+      fetch('/api/rank').then(res => res.json()).then(date => {
+        this.items = date;
+      });
+    }
+  },
+  computed:{
+      getItems(){
+        return this.items;
+      }
   }
 }
 </script>
@@ -46,5 +52,19 @@ li {
 }
 a {
   color: #42b983;
+}
+ul{
+  width: 100%;
+  overflow: hidden;
+}
+li{
+  float: left;
+  width: 22%;
+}
+.img{
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 200px;
 }
 </style>
