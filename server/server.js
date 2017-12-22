@@ -74,5 +74,5 @@ server.get('/api/rank', (req, res) => {
     
 });
 
-server.listen(10000);
+server.listen(5151);
 
