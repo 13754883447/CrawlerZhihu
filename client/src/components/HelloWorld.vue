@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <button @click='request'>获取</button>
+    <button @click='request'>获11465取</button>
     <ul>
       <li v-for="(v,i) in items" :key="i">
         <a :href="v.href" target="_blank" class="img">
